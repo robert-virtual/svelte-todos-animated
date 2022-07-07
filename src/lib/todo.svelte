@@ -1,12 +1,22 @@
 <script lang="ts">
   import type { ITodo } from "src/types";
+  import type { CrossfadeParams, TransitionConfig } from "svelte/transition";
 
   export let todo: ITodo;
+  export let keyobj: { key: any };
+  export let receive: (
+    node: Element,
+    params: CrossfadeParams & { key: any }
+  ) => () => TransitionConfig;
+  export let send: (
+    node: Element,
+    params: CrossfadeParams & { key: any }
+  ) => () => TransitionConfig;
 </script>
 
-<li>
+<li in:receive={keyobj} out:send={keyobj}>
   <label>
-    <input type="checkbox" bind:checked={todo.done}/>
+    <input type="checkbox" bind:checked={todo.done} />
     {todo.text}
   </label>
   <svg
@@ -42,13 +52,13 @@
     opacity: 0;
     transition: all 0.5s;
   }
-  li:hover{
+  li:hover {
     box-shadow: 0 0 6px gray;
   }
   li:hover > svg {
     opacity: 1;
   }
-  svg:hover{
+  svg:hover {
     color: red;
   }
 </style>
