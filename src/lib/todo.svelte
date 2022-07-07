@@ -1,18 +1,10 @@
 <script lang="ts">
-  import type { ITodo } from "src/types";
-  import type { CrossfadeParams, TransitionConfig } from "svelte/transition";
-
+  import type { ITodo, MyAnimation } from "src/types";
   export let todo: ITodo;
   export let keyobj: { key: any };
-  export let receive: (
-    node: Element,
-    params: CrossfadeParams & { key: any }
-  ) => () => TransitionConfig;
-  export let send: (
-    node: Element,
-    params: CrossfadeParams & { key: any }
-  ) => () => TransitionConfig;
-</script>
+  export let receive: MyAnimation
+  export let send: MyAnimation
+  </script>
 
 <li in:receive={keyobj} out:send={keyobj}>
   <label>
